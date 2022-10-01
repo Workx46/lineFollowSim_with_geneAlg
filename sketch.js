@@ -62,14 +62,6 @@ function generateCar() {
 	robots[robots.length - 1].maxAccel = .5;
 	robots[robots.length - 1].Kp = random(5);
 	robots[robots.length - 1].Kd = random(5);
-	// robots[robots.length - 1].robotWidth = 70;
-	// robots[robots.length - 1].sensorNo = 15;
-	// robots[robots.length - 1].sensor_distance = 100;
-	// robots[robots.length - 1].sensor_width = 15;
-	// robots[robots.length - 1].maxVel = 6.4;
-	// robots[robots.length - 1].maxAccel = .5;
-	// robots[robots.length - 1].Kp = 0.5;
-	// robots[robots.length - 1].Kd = 1.4;
 }
 
 function computed() {
@@ -77,11 +69,6 @@ function computed() {
 	for (var i = 0; i < robots.length; i++) robots[i].update();
     for (var i = 0; i < robots.length; i++) robots[i].show();
 	for (var i = 0; i < robots.length; i++) finished &= (robots[i].getScore()!=0);
-	// for (var i = 0; i < robots.length; i++){
-	// 	robots[i].update();
-	// 	robots[i].show();
-	// 	finished &= (robots[i].getScore()!=0);
-	// }
 	return finished;
 }
 

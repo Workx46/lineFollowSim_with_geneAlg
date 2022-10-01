@@ -37,7 +37,7 @@ function GUI(){
 }
 
 function saveEvent(){
-	saveJSON(best, "bestRobotData")
+	saveJSON(bestRobots, "bestRobotData")
 	// saveJSON(bestRobots, "Bestrobot")
 }
 

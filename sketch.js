@@ -4,7 +4,6 @@ var population = 50;
 let robots = [];
 let bestRobots = [];
 let best = [];
-var robotNoCounter = 0;
 var isAutoDelCar = true;
 var currentID;
 var robotWidth;
@@ -55,14 +54,14 @@ function draw() {
 
 function generateCar() {
 	robots.push(new Robot(210, 61, -90));
-	robots[robots.length - 1].robotWidth = random(70, 200);
+	robots[robots.length - 1].robotWidth = random(80, 180);
 	robots[robots.length - 1].sensorNo = 15;
-	robots[robots.length - 1].sensor_distance = random(70, 300);
+	robots[robots.length - 1].sensor_distance = random(50, 200);
 	robots[robots.length - 1].sensor_width = random(12, 20);
-	robots[robots.length - 1].maxVel = random(5., 7.);
+	robots[robots.length - 1].maxVel = random(5., 9.);
 	robots[robots.length - 1].maxAccel = .5;
-	robots[robots.length - 1].Kp = random(0, 5);
-	robots[robots.length - 1].Kd = random(0, 5);
+	robots[robots.length - 1].Kp = random(5);
+	robots[robots.length - 1].Kd = random(5);
 	// robots[robots.length - 1].robotWidth = 70;
 	// robots[robots.length - 1].sensorNo = 15;
 	// robots[robots.length - 1].sensor_distance = 100;
@@ -89,16 +88,12 @@ function computed() {
 function reduction(){
 	for(var i = 0; i<robots.length; i++){
 		bestRobots.push(robots[i]);
+		robots.splice(i, 1);
 	}
-	// print(bestRobots)
 	bestRobots.sort(function(a, b){return a.score - b.score;});
-	// print(bestRobots)
-	// for (var i = 0; i < robots.length; i++) {
-	// 	console.log(robots[i].getScore())
-	// }
 	for(var i=bestRobots.length - 1; i >= population; i--) bestRobots.splice(i, 1)
 	
-	fittest = bestRobots[0].score;
+	fittest = bestRobots[0].getScore();
 }
 /**
  * @param {Robot} a
@@ -120,7 +115,7 @@ function crossover(){
 		if(random(1) < 0.8) {
 			robots.push(a.crossover(b))
 		} else {
-			if(a.getScore()>b.getScore()) a = b;
+			if(a.getScore()>b.getScore()){a = b;} 
 			robots.push(new Robot(210, 61, -90))
 			robots[robots.length - 1].robotWidth = a.robotWidth;
 			robots[robots.length - 1].sensorNo = 15;
@@ -143,8 +138,6 @@ function mutation(){
 function drawStage(){
 	//background
 	image(img, 0, 0, 600, 600);
-	
-	autoDelCar();
 	
 	//draw the start line
 	fill(127, 127, 255, 127);
@@ -171,15 +164,4 @@ function drawStage(){
 
 }
 
-function autoDelCar() {
-	if (isAutoDelCar) {
-		for (var i = 0; i < robots.length; i++) {
-			if (robots[i].isDead) {
-				currentID = i;
-				delCarEvent();
-				break;
-			}
-		}
-	}
-}
 

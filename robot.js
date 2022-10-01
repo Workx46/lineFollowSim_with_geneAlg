@@ -25,7 +25,6 @@ class Robot {
     timer = 0; last_timer = 0;
     enterTimerZone;
     score = 0;
-    stage = 0;
     checkTimer = 0; lastCheckTimer = 0;
     GUI;
     /**
@@ -65,7 +64,6 @@ class Robot {
         // var lastY = 61;
         // var turn = 0, iteration, itt;
         // var checkFullTurn = true;
-        this.stage = 0;
         if (this.x <= 0 || this.x >= 580 || this.y <= 0 || this.y >= 580) this.isDead = true;
 
         for (var i = 0; i < this.sensorNo; i++) {
@@ -107,10 +105,8 @@ class Robot {
             }
             blackValue = 255. - blackValue / (this.sensorSize * this.sensorSize);
 
-            if (blackValue > 127) this.state[i] = 1;
-            else this.state[i] = 0;
-            this.stage = this.state[i];
-            this.stage = this.stage << 1;
+            if (blackValue > 127) this.state[i] = true;
+            else this.state[i] = false;
             //turn the sensor state into PID input
             if (blackValue > 127) online = true;
             //only average in values that are above a noise threshold
@@ -256,36 +252,37 @@ class Robot {
         var mv = 0;
         var kp = 0;
         var kd = 0;
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             rw = this.robotWidth;
         } else {
             rw = couple.robotWidth;
         }
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             sd = this.sensor_distance;
         } else {
             sd = couple.sensor_distance;
         }
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             sw = this.sensor_width;
         } else {
             sw = couple.sensor_width;
         }
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             mv = this.maxVel;
         } else {
             mv = couple.maxVel;
         }
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             kp = this.Kp;
         } else {
             kp = couple.Kp;
         }
-        if(int(random(10)%2==0)){
+        if(int(random(10))%2==0){
             kd = this.Kd;
         } else {
             kd = couple.Kd;
         }
+        // console.log('crossover')
         robotData = new Robot(210, 61, -90);
         robotData.robotWidth = rw;
         robotData.sensorNo = 15;
@@ -304,13 +301,13 @@ class Robot {
         var choice = int(random(6));
         switch(choice){
             case 0:
-                this.robotWidth = random(70, 200);
+                this.robotWidth = random(80, 180);
             case 1:
-                this.sensor_distance = random(70, 300);
+                this.sensor_distance = random(50, 200);
             case 2:
                 this.sensor_width = random(12, 20);
             case 3:
-                this.maxVel = random(5., 7.);
+                this.maxVel = random(5., 9.);
             case 4:
                 this.Kp = random(0, 5);
             case 5:
@@ -321,6 +318,9 @@ class Robot {
      * 
      */
     show() {
+        if(this.isDead) {
+            return;
+        }
         var sensor_position_x = 0;
         var sensor_position_y = 0;
         var thisSensorX = 0;
@@ -354,10 +354,6 @@ class Robot {
 
         fill('#0000FF');
         noStroke();
-        // text(this.score, this.x + 25, this.y - 50);
-        // text(this.x, 100, 0)
-        // text(this.y, 250, 0)
-        // text(this.error, 400, 0)
 
         for (var i = 0; i < this.sensorNo; i++) {
             _theta = radians(this.theta);
@@ -403,7 +399,6 @@ class Robot {
             this.updateSensor();
             this.PID();
             this.drive();
-            // this.oneLoop();
         }
     }
 }

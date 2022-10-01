@@ -92,7 +92,7 @@ function reduction(){
 	}
 	// print(bestRobots)
 	bestRobots.sort(function(a, b){return a.score - b.score;});
-	print(bestRobots)
+	// print(bestRobots)
 	// for (var i = 0; i < robots.length; i++) {
 	// 	console.log(robots[i].getScore())
 	// }

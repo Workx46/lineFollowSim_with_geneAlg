@@ -38,6 +38,7 @@ function draw() {
 	var fittestData = []
 	//set the fps
 	frameRate(FPS);
+	//draw background
 	drawStage();
 	if(computed()){
 		reduction();
@@ -45,7 +46,6 @@ function draw() {
 		mutation();
 		fittestData = [generation, fittest, bestRobots[0]]
 		best.push(fittestData);
-		// console.log(best);
 		generation++;
 	}
 

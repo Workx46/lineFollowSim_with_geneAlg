@@ -25,7 +25,6 @@ function loadEvent(){
 function handleFile(file) {
 	if (file.type === 'application' && file.subtype === 'json') {
 		RobotsStore = file.data;
-		// print(RobotsStore);
 
 		for (var i = 0; i < RobotsStore.length; i++) {
 			robots.push(new Robot(210, 61, -90));
@@ -40,8 +39,4 @@ function handleFile(file) {
 		}
 		fileSelectButton.remove();
 	}
-}
-
-function print(a) {
-	console.log(a);
 }

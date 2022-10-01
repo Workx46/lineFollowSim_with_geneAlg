@@ -60,10 +60,6 @@ class Robot {
         var thisSensorX = 0;
         var thisSensorY = 0;
         var _theta = 0;
-        // var lastX = 210;
-        // var lastY = 61;
-        // var turn = 0, iteration, itt;
-        // var checkFullTurn = true;
         if (this.x <= 0 || this.x >= 580 || this.y <= 0 || this.y >= 580) this.isDead = true;
 
         for (var i = 0; i < this.sensorNo; i++) {
@@ -72,29 +68,6 @@ class Robot {
             thisSensorY = this.sensor_distance * 0.3 * cos(this.sensor_width * 0.3 * (i - floor(this.sensorNo / 2)) / (this.sensor_distance * 0.3));
             sensor_position_x = this.x + thisSensorX * cos(_theta) + thisSensorY * sin(_theta);
             sensor_position_y = this.y + thisSensorX * sin(_theta) - thisSensorY * cos(_theta);
-
-            // iteration++;
-            // itt++;
-            // if(this.x >= 200 && this.x <= 220 && this.y >= 31 && this.y <= 91){
-            //     if(!checkFullTurn){ 
-            //         turn++;
-            //         console.log(turn)
-            //         checkFullTurn = true;
-            //     } 
-            // } else {
-            //     checkFullTurn = false;
-            // }
-            // if(turn == 2){
-            //     this.isDead = true;
-            // }
-            // if(itt == 20){
-            //     itt = 0;
-            //     if(abs(this.x - lastX)+abs(this.y - lastY) < 10){
-            //         this.isDead = true;
-            //     }
-            //     lastX = this.x;
-            //     lastY = this.y;
-            // }
 
             var blackValue = 0;
             for (var j = 0; j < this.sensorSize; j++) {
@@ -179,7 +152,7 @@ class Robot {
 
         this.iteration++;
         this.itt++;
-        // console.log(itt)
+        //check the car whether it is on the line
         if((this.x >= 205 && this.x <= 215) && (this.y >= 41 && this.y <= 81)){
             if(!this.checkFullTurn){ 
                 this.turn++;
@@ -194,7 +167,6 @@ class Robot {
         }
         if(this.itt == 30){
             this.itt = 0;
-            // console.log(abs(this.x - this.lastX)+abs(this.y - this.lastY))
             if(this.error > 6.8 || this.error < -6.8) this.isDead = true;
             if(abs(this.x - this.lastX)+abs(this.y - this.lastY) < 35) this.isDead = true;
             this.lastX = this.x;
@@ -282,7 +254,6 @@ class Robot {
         } else {
             kd = couple.Kd;
         }
-        // console.log('crossover')
         robotData = new Robot(210, 61, -90);
         robotData.robotWidth = rw;
         robotData.sensorNo = 15;
@@ -318,6 +289,7 @@ class Robot {
      * 
      */
     show() {
+        // if the car is dead, stop showing it
         if(this.isDead) {
             return;
         }
@@ -348,7 +320,6 @@ class Robot {
             strokeWeight(.5);
             line(-this.robotWidth * 0.3 / 2. - this.wheelWidth - 10, 0, this.robotWidth * 0.3 / 2 + this.wheelWidth / 2 + 10, 0);
             line(0, -30, 0, 15);
-            //print the id of car on the top
         }
         pop();
 

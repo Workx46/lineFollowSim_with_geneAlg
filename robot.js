@@ -272,7 +272,7 @@ class Robot {
         var choice = int(random(6));
         switch(choice){
             case 0:
-                this.robotWidth = random(80, 180);
+                this.robotWidth = random(60, 180);
             case 1:
                 this.sensor_distance = random(50, 200);
             case 2:

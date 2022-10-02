@@ -54,7 +54,7 @@ function draw() {
 
 function generateCar() {
 	robots.push(new Robot(210, 61, -90));
-	robots[robots.length - 1].robotWidth = random(80, 180);
+	robots[robots.length - 1].robotWidth = random(60, 180);
 	robots[robots.length - 1].sensorNo = 15;
 	robots[robots.length - 1].sensor_distance = random(50, 200);
 	robots[robots.length - 1].sensor_width = random(12, 20);
